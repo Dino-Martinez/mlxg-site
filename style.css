@@ -1,0 +1,217 @@
+:root {
+  --background-dark:#111;
+  --background-mid: #181818;
+  --background-light:#f6fefe;
+  --foreground-light:#fff;
+  --foreground-dark:#000;
+  --foreground-primary:#485e85;
+}
+@font-face {
+  font-family: mlxg;
+  src: url('assets/Monda-Regular.ttf') format('truetype'),
+       url('assets/Monda-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: mlxgBold;
+  src: url('assets/Monda-Bold.ttf') format('truetype'),
+       url('assets/Monda-Bold.woff') format('woff');
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family:mlxg;
+  font-size: 16px;
+  background:var(--background-dark);
+  margin:0;
+  overflow-x: hidden;
+}
+h1, h2, h3 {
+  font-family:mlxgBold;
+  font-weight: bold;
+}
+section.banner-center {
+  height:100vh;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  position:relative;
+  background-image: url('assets/landing-banner-background.jpg');
+  background-position:center;
+  background-attachment: scroll;
+  background-size: cover;
+  animation: fade-in 1.2s ease, zoom-in 1.2s ease;
+  z-index: -10;
+}
+section.banner-center > #landing-banner-logo {
+  width:350px;
+  height:auto;
+  margin-top:200vh;
+  animation: slide-from-bottom 1s ease-out 1s, fade-in 1.2s ease 1s;
+  animation-fill-mode: forwards;
+  z-index: -8;
+}
+section.banner-center > #landing-banner-foreground {
+  background-image: url('assets/landing-banner-foreground.png');
+  position:absolute;
+  margin-top:200vh;
+  background-position: center;
+  background-size: cover;
+  width:100%;
+  height:100vh;
+  animation:slide-from-bottom 1s ease-out, fade-in 1.2s ease;
+  animation-fill-mode: forwards;
+  z-index: -9;
+}
+section.banner-center > #landing-banner-arrows {
+  position:absolute;
+  height:64px;
+  top:calc(100vh - 64px);
+  z-index: 1;
+  filter:invert();
+  animation:banner-arrows 1s ease-in-out infinite;
+}
+#landing-page-info {
+  background: linear-gradient(-30deg, var(--background-mid) 60%, var(--background-dark) 60%);
+  background-size: 150% 150%;
+  background-position:0% 0%;
+  color:var(--foreground-light);
+  text-align: center;
+  transition: all 1.5s ease-out;
+  padding-bottom:72px;
+}
+.info-container {
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+}
+.info-content {
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+  width:50%;
+  font-size: 1em;
+  margin-top:48px;
+}
+.info-content > h1 {
+  color: var(--foreground-primary);
+  font-size: 3em;
+}
+.info-content > h3 {
+  font-size:1.5em;
+  margin-bottom: 0;
+}
+.horizontal-separator {
+  width: 256px;
+  height:0px;
+  border: 2px solid var(--foreground-light);
+  border-radius: 25px;
+}
+#partner-button {
+  margin-top: 24px;
+}
+.button {
+  background:linear-gradient(30deg, var(--foreground-light) 50%, rgba(0,0,0,0) 50%);
+  background-size: 400%;
+  background-position:75%;
+  padding:6px 12px 6px 12px;
+  border:1px solid var(--foreground-light);
+  border-radius: 10px;
+  color: var(--foreground-light);
+  transition:all .3s ease-out;
+}
+.button:hover {
+  background-position:0;
+  color:var(--foreground-dark);
+}
+a.button {
+  text-decoration: none;
+  font-size:1.5em;
+}
+#partner-showcase {
+  display:grid;
+  grid-template-columns: 32% 32% 32%;
+  justify-content: space-between;
+  grid-gap: 12px;
+  margin-top: 24px;
+}
+.partner-card {
+  border: 1px solid #fff;
+  background:var(--background-light);
+  color:var(--foreground-dark);
+  border-radius:25px 25px 25px 25px;
+}
+.partner-card > img {
+  background:var(--background-mid);
+  border-radius:25px 25px 0px 0px;
+  width:100%;
+}
+#return-to-top {
+  width:32px;
+  height:32px;
+  background-image:url('assets/landing-banner-arrows.png');
+  background-size: cover;
+  filter:invert();
+  transform: rotate(180deg);
+  position: fixed;
+  bottom:32px;
+  right:32px;
+  border:2px solid #000;
+  border-radius: 100%;
+}
+.fade {
+  opacity:0;
+}
+
+@media screen and (max-width: 1200px) {
+  #partner-showcase {
+    grid-template-columns: 49% 49%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #partner-showcase {
+    grid-template-columns: 100%;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    filter: brightness(0%);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(100%);
+  }
+}
+@keyframes slide-from-bottom {
+  0% {
+    margin-top: 200vh;
+  }
+  100% {
+    margin-top:0;
+  }
+}
+@keyframes banner-arrows {
+  0% {
+    margin-top: -16px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+@keyframes zoom-in {
+  0% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+#filler {
+  height:600px;
+}
