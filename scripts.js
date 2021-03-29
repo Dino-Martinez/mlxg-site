@@ -1,29 +1,32 @@
-let fadeList = [];
-let lpanimated = false;
 $(document).ready(() => {
   console.log("Ready!");
-  fadeList = $('.fade');
-});
-
-$(document).scroll(() => {
-  const scrollY = $(document).scrollTop();
-  const pageHeight = $(window).height();
-  
-  // fade in elements which have the fade classname
-  fadeList.each(function() {
-    const yPos = $(this).offset().top;
-    const height = $(this).height();
-    const distance = (yPos + height + 150) - (scrollY + pageHeight);
-    const opacity = 1 - (distance/200);
-    console.log(distance + " : " + (scrollY + pageHeight) + " : " + yPos + " : ");
-    $(this).css('opacity', opacity);
+  $("img").bind("contextmenu", function(e) {
+    return false;
   });
-  
-  // animate background for landing page info section
-  const lpy = $('#landing-page-info').offset().top;
-  if(scrollY + pageHeight - 250 > lpy && !lpanimated) {
-    $('#landing-page-info').css('background-position', '100% 0%');
-  } else {
-    $('#landing-page-info').css('background-position', '0% 0%');
-  }
 });
+const $animationElements = $(".scroll-animate");
+const $window = $(window);
+const checkIfInView = () => {
+  let window_height = $window.height();
+  let window_top_position = $window.scrollTop();
+  let window_bottom_position = window_top_position + window_height;
+
+  $.each($animationElements, function() {
+    let $element = $(this);
+    let element_height = $element.outerHeight();
+    let element_top_position = $element.offset().top;
+    let element_bottom_position = element_top_position + element_height;
+
+    //check to see if this current container is within viewport
+    if (
+      element_bottom_position >= window_top_position &&
+      element_top_position <= window_bottom_position
+    ) {
+      $element.addClass("in-view");
+    } else {
+      $element.removeClass("in-view");
+    }
+  });
+};
+
+$window.on("scroll resize", checkIfInView);

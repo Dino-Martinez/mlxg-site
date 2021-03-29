@@ -1,3 +1,19 @@
+// Variable declarations
+$background-dark: linear-gradient(180deg, #000000 0%, #191818 100%) 0% 0%
+  no-repeat padding-box;
+$background-light: linear-gradient(90deg, #ffffff 0%, #c1c1c1 100%) 0% 0%
+  no-repeat padding-box;
+$text-default: #fff;
+$text-invert: #000;
+$overflow-default: hidden;
+$font-size: 16px;
+$font-stack: normal normal 300 $font-size mlxg;
+$header-size: 1.5rem;
+$intro-timing: 0.5s;
+$section-spacing: 15rem;
+$slide-bottom-distance: 250px;
+
+// Font import
 @font-face {
   font-family: mlxg;
   src: url("assets/Alata-Regular.ttf") format("truetype");
@@ -6,40 +22,41 @@
   font-family: mlxgBold;
   src: url("assets/Alata-Regular.ttf") format("truetype");
 }
+
+// Top level styles
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font: normal normal 300 16px mlxg;
-  background: linear-gradient(180deg, #000000 0%, #191818 100%) 0% 0% no-repeat padding-box;
+  font: $font-stack;
+  background: $background-dark;
   margin: 0;
-  overflow-x: hidden;
-  color: #fff;
+  overflow-x: $overflow-default;
+  color: $text-default;
   min-height: 100vh;
+
+  // Remove scrollbar but still allow scrolling
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 body::-webkit-scrollbar {
-  display: none;
-  /* Safari and Chrome */
+  display: none; /* Safari and Chrome */
 }
 
 section {
-  margin-bottom: 15rem;
+  margin-bottom: $section-spacing;
 }
 
 section-header {
   display: block;
   overflow: hidden;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: $header-size;
 }
-
 section-header:before,
 section-header:after {
-  background-color: #fff;
+  background-color: $text-default;
   content: "";
   display: inline-block;
   height: 1px;
@@ -47,14 +64,12 @@ section-header:after {
   vertical-align: super;
   width: 50%;
 }
-
 section-header:before {
-  right: 1.5rem;
+  right: $header-size;
   margin-left: -50%;
 }
-
 section-header:after {
-  left: 1.5rem;
+  left: $header-size;
   margin-right: -50%;
 }
 
@@ -64,13 +79,15 @@ row {
   grid-gap: 10rem;
   margin-top: 10rem;
 }
-
+column {
+  @extend .center;
+  @extend .text-center;
+}
 card {
   width: 200px;
   height: 200px;
   border: solid 1px white;
 }
-
 bottom-hider {
   display: block;
   position: fixed;
@@ -80,82 +97,74 @@ bottom-hider {
   background: linear-gradient(0deg, black, transparent);
   z-index: 100;
 }
-
 .margin-0 {
   margin: 0;
 }
-
 .logo {
-  width: 3.75rem;
+  width: $header-size * 2.5;
 }
-
-.text-center, column {
+.text-center {
   text-align: center;
 }
-
-.center, column {
+.center {
   display: flex;
   justify-content: center;
 }
-
 .intro {
   font-size: 10rem;
   position: relative;
+  p {
+    margin: 0;
+    width: 100vw;
+  }
 }
-.intro p {
-  margin: 0;
-  width: 100vw;
-}
-
 .intro-clip {
   position: absolute;
   top: 0;
-  color: #000;
-  background: linear-gradient(90deg, #ffffff 0%, #c1c1c1 100%) 0% 0% no-repeat padding-box;
+  color: $text-invert;
+  background: $background-light;
   clip-path: polygon(0 55%, 100% 80%, 100% 80%, 0 55%);
-  animation: expand 1s forwards ease-out;
-  animation-delay: 0.5s;
+  animation: expand ($intro-timing * 2) forwards ease-out;
+  animation-delay: $intro-timing;
 }
-
 .intro-fade {
   opacity: 0;
-  animation: fade-in 1s forwards ease-in;
-  animation-delay: 1.25s;
+  animation: fade-in ($intro-timing * 2) forwards ease-in;
+  animation-delay: $intro-timing * 3 - ($intro-timing / 2);
 }
-
 .description {
   font-size: 1.2rem;
+  p {
+    width: 50%;
+  }
 }
-.description p {
-  width: 50%;
-}
-
 .scroll-animate > * {
-  margin-top: 250px;
+  margin-top: $slide-bottom-distance;
 }
-
+@mixin transition {
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation-delay: 0.15s * $i;
+    }
+  }
+}
 .in-view > * {
   animation: slide-from-bottom 1s ease forwards;
-}
-.in-view > *:nth-child(1) {
-  animation-delay: 0.15s;
-}
-.in-view > *:nth-child(2) {
-  animation-delay: 0.3s;
-}
-.in-view > *:nth-child(3) {
-  animation-delay: 0.45s;
-}
-.in-view > *:nth-child(4) {
-  animation-delay: 0.6s;
+  @include transition;
 }
 
 /*
  * Tablet
  */
+@media screen and (max-width: 1200px) {
+}
+
 /*
  * Mobile
  */
+@media screen and (max-width: 768px) {
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -168,7 +177,7 @@ bottom-hider {
 }
 @keyframes slide-from-bottom {
   0% {
-    margin-top: 250px;
+    margin-top: $slide-bottom-distance;
   }
   100% {
     margin-top: 0;
@@ -198,5 +207,3 @@ bottom-hider {
     clip-path: polygon(0 35%, 100% 60%, 100% 100%, 0 75%);
   }
 }
-
-/*# sourceMappingURL=style.css.map */
